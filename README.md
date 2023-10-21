@@ -46,5 +46,6 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
   - 图形的导出导入
 
 - 样式
+<img width="937" alt="image-20231021100104670" src="https://github.com/ssyyi/x6-2.x-with-vue2/assets/61812739/128da676-c56b-4b11-aebd-a47aa78e1a2d">
 
-    ![](image-20231021100104670.png)
+    
