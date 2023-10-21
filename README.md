@@ -25,7 +25,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 - Demo环境
 
 ```js
-		"@antv/x6": "^2.15.2",
+    "@antv/x6": "^2.15.2",
     "@antv/x6-plugin-clipboard": "^2.1.6",
     "@antv/x6-plugin-dnd": "^2.1.1",
     "@antv/x6-plugin-export": "^2.1.6",
@@ -47,4 +47,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 - 样式
 
-  ![image-20231021100104670](/Users/Harry/Library/Application Support/typora-user-images/image-20231021100104670.png)
+    ![Alt text](image-20231021100104670.png)
