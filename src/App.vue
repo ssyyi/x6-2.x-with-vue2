@@ -13,11 +13,7 @@
         <button @click="importJSON">导入JSON</button>
       </div>
       <!-- 画布部分 -->
-      <div
-        id="container"
-        v-on:mouseenter="onMouseEnter"
-        v-on:mouseleave="onMouseLeave"
-      ></div>
+      <div id="container"></div>
     </div>
   </div>
 </template>
@@ -403,6 +399,7 @@ export default {
       stencil.load([r1, r2, r3, r4, r5, r6], "group1");
 
       this.graph = graph;
+      this.onMouse();
       this.KeyDown();
     },
     //键盘事件
@@ -472,14 +469,12 @@ export default {
         ports[i].style.visibility = show ? "visible" : "hidden";
       }
     },
-    onMouseEnter() {
+    onMouse() {
       this.graph.on("node:mouseenter", () => {
         const container = document.getElementById("container");
         const ports = container.querySelectorAll(".x6-port-body");
         this.showPorts(ports, true);
       });
-    },
-    onMouseLeave() {
       this.graph.on("node:mouseleave", () => {
         const container = document.getElementById("container");
         const ports = container.querySelectorAll(".x6-port-body");
