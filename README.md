@@ -47,4 +47,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 - 样式
 
-    ![Alt text](image-20231021100104670.png)
+    ![](image-20231021100104670.png)

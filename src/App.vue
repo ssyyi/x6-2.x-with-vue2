@@ -44,13 +44,14 @@ export default {
     this.init();
   },
   methods: {
+    // 初始化 画布
     init() {
-      // 初始化 画布
       const graph = new Graph({
         container: document.getElementById("container"),
         width: 1000,
         height: 800,
         grid: true,
+        //滚轮
         mousewheel: {
           enabled: true,
           zoomAtMousePosition: true,
@@ -58,6 +59,7 @@ export default {
           minScale: 0.5,
           maxScale: 3,
         },
+        //连接线
         connecting: {
           router: "manhattan",
           connector: {
@@ -104,7 +106,7 @@ export default {
           },
         },
       });
-
+      //使用插件
       graph
         .use(
           new Transform({
@@ -123,7 +125,7 @@ export default {
         .use(new Clipboard())
         .use(new History())
         .use(new Export());
-
+      //连接桩
       const ports = {
         groups: {
           top: {
@@ -225,6 +227,7 @@ export default {
       document.getElementById("stencil").appendChild(stencil.container);
 
       /////////////////////////////////////
+      //注册节点
       Graph.registerNode(
         "custom-rect",
         {
@@ -344,7 +347,7 @@ export default {
         },
         true
       );
-
+      //创建节点
       const r1 = graph.createNode({
         shape: "custom-rect",
         label: "开始",
@@ -400,6 +403,68 @@ export default {
       stencil.load([r1, r2, r3, r4, r5, r6], "group1");
 
       this.graph = graph;
+      this.KeyDown();
+    },
+    //键盘事件
+    KeyDown() {
+      this.graph.bindKey(["meta+c", "ctrl+c"], () => {
+        const cells = this.graph.getSelectedCells();
+        if (cells.length) {
+          this.graph.copy(cells);
+        }
+        return false;
+      });
+      this.graph.bindKey(["meta+x", "ctrl+x"], () => {
+        const cells = this.graph.getSelectedCells();
+        if (cells.length) {
+          this.graph.cut(cells);
+        }
+        return false;
+      });
+      this.graph.bindKey(["meta+v", "ctrl+v"], () => {
+        if (!this.graph.isClipboardEmpty()) {
+          const cells = this.graph.paste({ offset: 32 });
+          this.graph.cleanSelection();
+          this.graph.select(cells);
+        }
+        return false;
+      });
+      this.graph.bindKey(["meta+z", "ctrl+z"], () => {
+        if (this.graph.canUndo()) {
+          this.graph.undo();
+        }
+        return false;
+      });
+      this.graph.bindKey(["meta+shift+z", "ctrl+shift+z"], () => {
+        if (this.graph.canRedo()) {
+          this.graph.redo();
+        }
+        return false;
+      });
+      this.graph.bindKey(["meta+a", "ctrl+a"], () => {
+        const nodes = this.graph.getNodes();
+        if (nodes) {
+          this.graph.select(nodes);
+        }
+      });
+      this.graph.bindKey("backspace", () => {
+        const cells = this.graph.getSelectedCells();
+        if (cells.length) {
+          this.graph.removeCells(cells);
+        }
+      });
+      this.graph.bindKey(["ctrl+1", "meta+1"], () => {
+        const zoom = this.graph.zoom();
+        if (zoom < 1.5) {
+          this.graph.zoom(0.1);
+        }
+      });
+      this.graph.bindKey(["ctrl+2", "meta+2"], () => {
+        const zoom = this.graph.zoom();
+        if (zoom > 0.5) {
+          this.graph.zoom(-0.1);
+        }
+      });
     },
     // 控制连接桩显示/隐藏
     showPorts(ports, show) {
