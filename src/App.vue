@@ -83,6 +83,16 @@ export default {
                   },
                 },
               },
+              tools: [
+                {
+                  name: "edge-editor",
+                  args: {
+                    attrs: {
+                      backgroundColor: "#fff",
+                    },
+                  },
+                },
+              ],
               zIndex: 0,
             });
           },
@@ -205,7 +215,7 @@ export default {
         title: "流程图例",
         target: graph,
         stencilGraphWidth: 200,
-        stencilGraphHeight: 180,
+        stencilGraphHeight: 500,
         collapsable: true,
         nodeMovable: true,
         groups: [
@@ -216,8 +226,8 @@ export default {
         ],
         layoutOptions: {
           columns: 2,
-          columnWidth: 80,
-          rowHeight: 55,
+          columnWidth: 90,
+          rowHeight: 65,
         },
       });
       document.getElementById("stencil").appendChild(stencil.container);
@@ -228,8 +238,8 @@ export default {
         "custom-rect",
         {
           inherit: "rect",
-          width: 66,
-          height: 36,
+          width: 80,
+          height: 40,
           attrs: {
             body: {
               strokeWidth: 1,
@@ -237,11 +247,24 @@ export default {
               fill: "#EFF4FF",
             },
             text: {
-              fontSize: 12,
+              fontSize: 14,
               fill: "#262626",
             },
           },
           ports: { ...ports },
+          tools: [
+            {
+              name: "node-editor",
+              args: {
+                x: 20,
+                y: 10,
+                attrs: {
+                  backgroundColor: "#EFF4FF",
+                  fontSize: "16",
+                },
+              },
+            },
+          ],
         },
         true
       );
@@ -250,8 +273,8 @@ export default {
         "custom-polygon",
         {
           inherit: "polygon",
-          width: 66,
-          height: 36,
+          width: 80,
+          height: 40,
           attrs: {
             body: {
               strokeWidth: 1,
@@ -259,21 +282,26 @@ export default {
               fill: "#EFF4FF",
             },
             text: {
-              fontSize: 12,
+              fontSize: 14,
               fill: "#262626",
             },
           },
           ports: {
             ...ports,
-            items: [
-              {
-                group: "top",
-              },
-              {
-                group: "bottom",
-              },
-            ],
           },
+          tools: [
+            {
+              name: "node-editor",
+              args: {
+                x: 20,
+                y: 10,
+                attrs: {
+                  backgroundColor: "#EFF4FF",
+                  fontSize: "16",
+                },
+              },
+            },
+          ],
         },
         true
       );
@@ -282,8 +310,8 @@ export default {
         "custom-circle",
         {
           inherit: "circle",
-          width: 45,
-          height: 45,
+          width: 60,
+          height: 60,
           attrs: {
             body: {
               strokeWidth: 1,
@@ -291,58 +319,28 @@ export default {
               fill: "#EFF4FF",
             },
             text: {
-              fontSize: 12,
+              fontSize: 14,
               fill: "#262626",
             },
           },
           ports: { ...ports },
+          tools: [
+            {
+              name: "node-editor",
+              args: {
+                x: 0,
+                y: 20,
+                attrs: {
+                  backgroundColor: "#EFF4FF",
+                  fontSize: "16",
+                },
+              },
+            },
+          ],
         },
         true
       );
 
-      Graph.registerNode(
-        "custom-image",
-        {
-          inherit: "rect",
-          width: 52,
-          height: 52,
-          markup: [
-            {
-              tagName: "rect",
-              selector: "body",
-            },
-            {
-              tagName: "image",
-            },
-            {
-              tagName: "text",
-              selector: "label",
-            },
-          ],
-          attrs: {
-            body: {
-              stroke: "#5F95FF",
-              fill: "#5F95FF",
-            },
-            image: {
-              width: 26,
-              height: 26,
-              refX: 13,
-              refY: 16,
-            },
-            label: {
-              refX: 3,
-              refY: 2,
-              textAnchor: "left",
-              textVerticalAnchor: "top",
-              fontSize: 12,
-              fill: "#fff",
-            },
-          },
-          ports: { ...ports },
-        },
-        true
-      );
       //创建节点
       const r1 = graph.createNode({
         shape: "custom-rect",
@@ -387,14 +385,8 @@ export default {
         label: "数据",
       });
       const r6 = graph.createNode({
-        shape: "custom-rect",
-        label: "结束",
-        attrs: {
-          body: {
-            rx: 20,
-            ry: 26,
-          },
-        },
+        shape: "custom-circle",
+        label: "连接",
       });
       stencil.load([r1, r2, r3, r4, r5, r6], "group1");
 
@@ -500,9 +492,9 @@ export default {
 .wrap {
   margin: 0 200px;
   display: flex;
-  width: 100vh;
+  width: 100%;
   #stencil {
-    width: 15vw;
+    width: 200px;
     height: 100%;
     position: relative;
   }
